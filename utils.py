@@ -1,3 +1,5 @@
+from tkinter import messagebox
+
 def gerar_array(caminho_entrada): #Recebe o arquivo SPED é transforma ele em um array para facil manipulação
     resultado = []
 
@@ -18,4 +20,4 @@ def salvar_array(array, caminho): #Salva o arquivo na mesma pasta do original
             linha_formatada = "|" + "|".join(sub_array) + "|"
             arquivo.write(linha_formatada + "\n")
 
-    return caminho_saida
+    messagebox.showinfo("Finalizado", f"Arquivo salvo em:\n{caminho_saida}")
