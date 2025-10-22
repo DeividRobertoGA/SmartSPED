@@ -1,6 +1,5 @@
 import customtkinter as ctk
 from tkinter import filedialog, messagebox
-import locale
 from utils import gerar_array, salvar_array
 from contribuicao import correcao17COD_CTA
 
