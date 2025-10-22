@@ -2,13 +2,14 @@ import customtkinter as ctk
 from tkinter import filedialog, messagebox
 from utils import gerar_array, salvar_array
 from contribuicao import correcao17COD_CTA
+from fiscal import calValueTypeDocument
 
 ctk.set_appearance_mode("light")
 
 class App(ctk.CTk):
     def __init__(self):
         super().__init__()
-        self.title("SPED")
+        self.title("SPEED")
         self.geometry("400x250")
 
         self.current_page = 0  # 0 = Fiscal, 1 = Contribuição
@@ -58,6 +59,9 @@ class App(ctk.CTk):
         title = ctk.CTkLabel(frame, text="Fiscal", font=("Arial", 18, "bold"))
         title.pack(anchor="w")
 
+        self.fiscal_checkbox = ctk.CTkCheckBox(frame, text="Calcular valor por tipo documento", border_color="#757575", font=("Arial", 12), checkbox_width=20, checkbox_height=20, border_width=0.8, corner_radius=5)
+        self.fiscal_checkbox.pack(anchor="w")
+
         return frame
 
     def create_contrib_page(self):
@@ -98,9 +102,18 @@ class App(ctk.CTk):
 
     def init_script(self):
 
-        caminho = self.file_path_var.get()
+        caminho = self.file_path_var.get();
 
-        if self.current_page == 1:
+        if self.current_page == 0:
+            if not self.fiscal_checkbox.get():
+                messagebox.showinfo("Aviso", "Nenhuma opção marcada na página Fiscal.")
+
+            if self.fiscal_checkbox.get():
+                array_final = gerar_array(caminho)
+                calValueTypeDocument(array_final)
+
+
+        elif self.current_page == 1:
             if not self.contrib_checkbox.get():
                 messagebox.showinfo("Aviso", "Nenhuma opção marcada na página Contribuição.")
 
